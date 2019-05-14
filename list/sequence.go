@@ -1,8 +1,14 @@
 package list
 
-import "fmt"
+import (
+	"errors"
+)
 
 // 链表顺序存储
+var (
+	IndexError    = errors.New("index out of range")
+	PositionError = errors.New("Incorrect position")
+)
 
 // 数据定义
 type Student struct {
@@ -37,7 +43,7 @@ func ListLength() int {
 func GetElem(i int) (stu Student, err error) {
 	l := len(students)
 	if i < 1 || i > l {
-		return stu, fmt.Errorf("元素未找到")
+		return stu, IndexError
 	}
 	return students[i-1], nil
 }
@@ -46,10 +52,10 @@ func GetElem(i int) (stu Student, err error) {
 func ListInsert(i int, stu Student) error {
 	l := len(students)
 	if i < 1 || i > l+1 {
-		return fmt.Errorf("插入位置不正确")
+		return PositionError
 	}
 	students = append(students, stu)
-	if i == l {
+	if i == l+1 {
 		return nil
 	}
 
@@ -64,21 +70,21 @@ func ListInsert(i int, stu Student) error {
 func ListDelete(i int) (stu Student, err error) {
 	l := len(students)
 	if i < 1 || i > l {
-		return stu, fmt.Errorf("插入位置不正确")
+		return stu, PositionError
 	}
 	stu = students[i-1]
 	for j := i; j < l; j++ {
 		students[j-1] = students[j]
 	}
-	students = students[:l]
+	students = students[:l-1]
 	return
 }
 
 // 搜索元素
-func LocateElem(stu Student) (index int, ok bool) {
+func LocateElem(no string) (index int, ok bool) {
 	for i, s := range students {
-		if s.No == stu.No {
-			return i, true
+		if s.No == no {
+			return i+1, true
 		}
 	}
 	return index, ok
