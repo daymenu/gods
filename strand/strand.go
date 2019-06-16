@@ -1,0 +1,5 @@
+package strand
+
+func strstr() {
+
+}
