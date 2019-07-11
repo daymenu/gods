@@ -2,32 +2,34 @@ package list
 
 import "fmt"
 
-// SingleElement 列表结点
-type SingleElement struct {
+// LoopElement 列表结点
+type LoopElement struct {
 	Data interface{}
-	next *SingleElement
+	next *LoopElement
 }
 
-// SingleLink 列表
-type SingleLink struct {
-	head   *SingleElement
+// LoopLink 列表
+type LoopLink struct {
+	head   *LoopElement
 	lenght int
 }
 
-// Single 新建一个空列表
-func Single() *SingleLink {
-	return &SingleLink{
-		head: &SingleElement{},
+// Loop 新建一个空列表
+func Loop() *LoopLink {
+	head := &LoopElement{}
+	head.next = head
+	return &LoopLink{
+		head: head,
 	}
 }
 
 // Length 获取列表的长度
-func (l *SingleLink) Length() int {
+func (l *LoopLink) Length() int {
 	return l.lenght
 }
 
 // Insert 在列表的第几个位置插入元素
-func (l *SingleLink) Insert(i int, data interface{}) error {
+func (l *LoopLink) Insert(i int, data interface{}) error {
 	maxLen := l.Length() + 1
 	if i <= 0 || i > maxLen {
 		return ErrIndex
@@ -36,7 +38,7 @@ func (l *SingleLink) Insert(i int, data interface{}) error {
 	for j := 1; j < i; j++ {
 		p = p.next
 	}
-	p.next = &SingleElement{
+	p.next = &LoopElement{
 		Data: data,
 		next: p.next,
 	}
@@ -45,7 +47,7 @@ func (l *SingleLink) Insert(i int, data interface{}) error {
 }
 
 // Delete 删除制定位置的元素
-func (l *SingleLink) Delete(i int) (data interface{}, err error) {
+func (l *LoopLink) Delete(i int) (data interface{}, err error) {
 	if i <= 0 || i > l.Length() {
 		return nil, ErrIndex
 	}
@@ -60,9 +62,9 @@ func (l *SingleLink) Delete(i int) (data interface{}, err error) {
 }
 
 // String 实现Stringer接口
-func (l *SingleLink) String() string {
+func (l *LoopLink) String() string {
 	lstr := "\nlist:\n"
-	for p := l.head.next; p != l.head; {
+	for p := l.head.next; p != nil; {
 		lstr += fmt.Sprintln("\t", p.Data)
 		p = p.next
 	}
@@ -70,7 +72,7 @@ func (l *SingleLink) String() string {
 }
 
 // GetElem 获取指定位置元素
-func (l *SingleLink) GetElem(i int) (e *SingleElement, err error) {
+func (l *LoopLink) GetElem(i int) (e *LoopElement, err error) {
 	if i <= 0 || i > l.Length() {
 		return nil, ErrIndex
 	}
@@ -83,7 +85,7 @@ func (l *SingleLink) GetElem(i int) (e *SingleElement, err error) {
 }
 
 // Reverse 反转列表
-func (l *SingleLink) Reverse() error {
+func (l *LoopLink) Reverse() error {
 	if l.Length() == 0 {
 		return nil
 	}
@@ -102,7 +104,7 @@ func (l *SingleLink) Reverse() error {
 }
 
 // Union 两个链表合并
-func (l *SingleLink) Union(sl *SingleLink) error {
+func (l *LoopLink) Union(sl *LoopLink) error {
 	p := l.head
 	for p.next != nil {
 		p = p.next
