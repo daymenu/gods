@@ -55,10 +55,10 @@ func (d *DoubleLink) Delete(i int) (data Comparer, err error) {
 	for j := 1; j < i; j++ {
 		p = p.next
 	}
-
 	if p.next.next != nil {
 		p.next.next.pre = p
 	}
+	data = p.next.Data
 	p.next = p.next.next
 	d.lenght--
 	return data, nil

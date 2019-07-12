@@ -28,4 +28,7 @@ func TestDoubleDelete(t *testing.T) {
 	if e, err := l.Delete(2); err != nil || e != Age(1) {
 		t.Error(e)
 	}
+	if e, err := l.Delete(1); err != nil || e != Age(2) {
+		t.Error(e)
+	}
 }
