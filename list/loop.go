@@ -4,7 +4,7 @@ import "fmt"
 
 // LoopElement 列表结点
 type LoopElement struct {
-	Data interface{}
+	Data Comparer
 	next *LoopElement
 }
 
@@ -29,7 +29,7 @@ func (l *LoopLink) Length() int {
 }
 
 // Insert 在列表的第几个位置插入元素
-func (l *LoopLink) Insert(i int, data interface{}) error {
+func (l *LoopLink) Insert(i int, data Comparer) error {
 	maxLen := l.Length() + 1
 	if i <= 0 || i > maxLen {
 		return ErrIndex
@@ -47,7 +47,7 @@ func (l *LoopLink) Insert(i int, data interface{}) error {
 }
 
 // Delete 删除制定位置的元素
-func (l *LoopLink) Delete(i int) (data interface{}, err error) {
+func (l *LoopLink) Delete(i int) (data Comparer, err error) {
 	if i <= 0 || i > l.Length() {
 		return nil, ErrIndex
 	}
@@ -64,7 +64,7 @@ func (l *LoopLink) Delete(i int) (data interface{}, err error) {
 // String 实现Stringer接口
 func (l *LoopLink) String() string {
 	lstr := "\nlist:\n"
-	for p := l.head.next; p != nil; {
+	for p := l.head.next; p != l.head; {
 		lstr += fmt.Sprintln("\t", p.Data)
 		p = p.next
 	}

@@ -4,7 +4,7 @@ import "fmt"
 
 // DoubleElement 列表结点
 type DoubleElement struct {
-	Data      interface{}
+	Data      Comparer
 	pre, next *DoubleElement
 }
 
@@ -27,7 +27,7 @@ func (d *DoubleLink) Length() int {
 }
 
 // Insert 在列表的第几个位置插入元素
-func (d *DoubleLink) Insert(i int, data interface{}) error {
+func (d *DoubleLink) Insert(i int, data Comparer) error {
 	maxLen := d.Length() + 1
 	if i <= 0 || i > maxLen {
 		return ErrIndex
@@ -47,7 +47,7 @@ func (d *DoubleLink) Insert(i int, data interface{}) error {
 }
 
 // Delete 删除制定位置的元素
-func (d *DoubleLink) Delete(i int) (data interface{}, err error) {
+func (d *DoubleLink) Delete(i int) (data Comparer, err error) {
 	if i <= 0 || i > d.Length() {
 		return nil, ErrIndex
 	}

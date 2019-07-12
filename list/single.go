@@ -1,10 +1,12 @@
 package list
 
-import "fmt"
+import (
+	"fmt"
+)
 
 // SingleElement 列表结点
 type SingleElement struct {
-	Data interface{}
+	Data Comparer
 	next *SingleElement
 }
 
@@ -27,7 +29,7 @@ func (l *SingleLink) Length() int {
 }
 
 // Insert 在列表的第几个位置插入元素
-func (l *SingleLink) Insert(i int, data interface{}) error {
+func (l *SingleLink) Insert(i int, data Comparer) error {
 	maxLen := l.Length() + 1
 	if i <= 0 || i > maxLen {
 		return ErrIndex
@@ -45,7 +47,7 @@ func (l *SingleLink) Insert(i int, data interface{}) error {
 }
 
 // Delete 删除制定位置的元素
-func (l *SingleLink) Delete(i int) (data interface{}, err error) {
+func (l *SingleLink) Delete(i int) (data Comparer, err error) {
 	if i <= 0 || i > l.Length() {
 		return nil, ErrIndex
 	}
@@ -62,7 +64,7 @@ func (l *SingleLink) Delete(i int) (data interface{}, err error) {
 // String 实现Stringer接口
 func (l *SingleLink) String() string {
 	lstr := "\nlist:\n"
-	for p := l.head.next; p != l.head; {
+	for p := l.head.next; p != nil; {
 		lstr += fmt.Sprintln("\t", p.Data)
 		p = p.next
 	}
@@ -79,6 +81,21 @@ func (l *SingleLink) GetElem(i int) (e *SingleElement, err error) {
 		p = p.next
 	}
 	e = p
+	return
+}
+
+// LocateElem 获取指定值的索引
+func (l *SingleLink) LocateElem(data Comparer) (i int, err error) {
+	p := l.head.next
+	for p != nil {
+		i++
+		if p.Data.compare(data) {
+			return i, nil
+		}
+		p = p.next
+	}
+	i = 0
+	err = ErrNotFound
 	return
 }
 
@@ -108,5 +125,6 @@ func (l *SingleLink) Union(sl *SingleLink) error {
 		p = p.next
 	}
 	p.next = sl.head.next
+	l.lenght += sl.lenght
 	return nil
 }
