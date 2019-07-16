@@ -6,7 +6,7 @@ const maxSize = 100
 
 //SqQueue queue data
 type SqQueue struct {
-	data  [maxSize]int
+	data  [maxSize]interface{}
 	front int
 	rear  int
 }
@@ -20,12 +20,12 @@ func New() *SqQueue {
 }
 
 // Length queue length
-func (q *SqQueue) Length() int {
+func (q *SqQueue) Length() interface{} {
 	return (q.rear - q.front + maxSize) % maxSize
 }
 
 // In in queue
-func (q *SqQueue) In(e int) error {
+func (q *SqQueue) In(e interface{}) error {
 	if (q.rear+1)%maxSize == q.front {
 		return fmt.Errorf("quque is full")
 	}
@@ -35,7 +35,7 @@ func (q *SqQueue) In(e int) error {
 }
 
 // Out in queue
-func (q *SqQueue) Out() (e int, err error) {
+func (q *SqQueue) Out() (e interface{}, err error) {
 	if q.rear == q.front {
 		return e, fmt.Errorf("quque is full")
 	}

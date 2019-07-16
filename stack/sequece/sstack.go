@@ -1,20 +1,19 @@
 package sequece
 
-type Element int
-
+// Stack 栈链表要
 type Stack struct {
-	el  []Element
+	el  []interface{}
 	top int
 }
 
-// 入栈
-func (s *Stack) Push(el Element) {
+// Push 入栈
+func (s *Stack) Push(el interface{}) {
 	s.top++
 	s.el = append(s.el, el)
 }
 
-// 出栈
-func (s *Stack) Pull() (ok bool, el Element) {
+// Pop 出栈
+func (s *Stack) Pop() (ok bool, el interface{}) {
 	if s.top < 1 {
 		return
 	}
