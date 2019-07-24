@@ -4,14 +4,14 @@ import "fmt"
 
 const maxSize = 100
 
-//SqQueue queue data
+//SqQueue 结构体定义
 type SqQueue struct {
 	data  [maxSize]interface{}
 	front int
 	rear  int
 }
 
-//New new queue
+//New 新建空队列
 func New() *SqQueue {
 	return &SqQueue{
 		front: 0,
@@ -19,13 +19,13 @@ func New() *SqQueue {
 	}
 }
 
-// Length queue length
+// Length 队列长度
 func (q *SqQueue) Length() interface{} {
 	return (q.rear - q.front + maxSize) % maxSize
 }
 
-// In in queue
-func (q *SqQueue) In(e interface{}) error {
+// Enqueue 入队
+func (q *SqQueue) Enqueue(e interface{}) error {
 	if (q.rear+1)%maxSize == q.front {
 		return fmt.Errorf("quque is full")
 	}
@@ -34,12 +34,12 @@ func (q *SqQueue) In(e interface{}) error {
 	return nil
 }
 
-// Out in queue
-func (q *SqQueue) Out() (e interface{}, err error) {
+// Dequeue 出队
+func (q *SqQueue) Dequeue() (e interface{}, err error) {
 	if q.rear == q.front {
-		return e, fmt.Errorf("quque is full")
+		return e, fmt.Errorf("quque is empty")
 	}
 	e = q.data[q.front]
 	q.front = (q.front + 1) % maxSize
-	return 0, nil
+	return e, nil
 }
