@@ -4,5 +4,5 @@ package list
 
 // Comparer 数据接口
 type Comparer interface {
-	compare(data interface{}) bool
+	Compare(data interface{}) bool
 }

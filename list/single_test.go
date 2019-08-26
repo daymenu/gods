@@ -6,8 +6,9 @@ import (
 
 type Age int
 
-func (a Age) compare(data interface{}) bool {
-	if a == data {
+func (a Age) Compare(data interface{}) bool {
+	age := data.(Age)
+	if a == age {
 		return true
 	}
 	return false

@@ -89,7 +89,7 @@ func (l *SingleLink) LocateElem(data Comparer) (i int, err error) {
 	p := l.head.next
 	for p != nil {
 		i++
-		if p.Data.compare(data) {
+		if p.Data.Compare(data) {
 			return i, nil
 		}
 		p = p.next
