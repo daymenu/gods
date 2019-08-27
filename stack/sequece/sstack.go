@@ -13,12 +13,24 @@ func (s *Stack) Push(el interface{}) {
 }
 
 // Pop 出栈
-func (s *Stack) Pop() (ok bool, el interface{}) {
+func (s *Stack) Pop() (el interface{}, ok bool) {
 	if s.top < 1 {
 		return
 	}
 	s.top--
 	el = s.el[s.top]
 	s.el = s.el[:s.top]
-	return true, el
+	ok = true
+	return
+}
+
+// Length 长度
+func (s *Stack) Length() int {
+	return len(s.el)
+}
+
+// Clear 清空栈
+func (s *Stack) Clear() error {
+	s.el = s.el[:0]
+	return nil
 }
