@@ -18,41 +18,39 @@ func split(a []int) []int {
 			a[0], a[1] = a[1], a[0]
 		}
 	}
-	fmt.Println("split:", a[:aLen/2], a[aLen/2:])
 	return merge(split(a[:aLen/2]), split(a[aLen/2:]))
 }
 
 func merge(a, b []int) []int {
-	// fmt.Println("merge", a, b)
 	aLen, bLen := len(a), len(b)
 	c := make([]int, aLen+bLen)
-	c[0] = 1
-	i, j := 0, 0
+	i, j, k := 0, 0, 0
 	for i < aLen && j < bLen {
-		if a[i] > a[j] {
-			c = append(c, a[j])
-			j++
-		} else {
-			c = append(c, a[i])
+		if a[i] <= b[j] {
+			c[k] = a[i]
 			i++
+		} else {
+			c[k] = b[j]
+			j++
 		}
+		k++
 	}
-
-	if i < aLen-1 {
+	if i < aLen {
 		for ; i < aLen; i++ {
-			c = append(c, a[i])
+			c[k] = a[i]
+			k++
 		}
 	}
 
-	if j < aLen-1 {
-		for ; j < aLen; j++ {
-			c = append(c, a[j])
+	if j < bLen {
+		for ; j < bLen; j++ {
+			c[k] = b[j]
+			k++
 		}
 	}
-
 	return c
 }
 
 func main() {
-	fmt.Println(Merge([]int{3, 2, 7, 6, 8, 1, 0}))
+	fmt.Println(Merge([]int{9, 8, 7, 3, 2, 1, 1, 5, 4, 6}))
 }
