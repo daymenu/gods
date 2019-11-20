@@ -1,6 +1,4 @@
-package main
-
-import "fmt"
+package merge
 
 // Merge 归并排序
 func Merge(a []int) []int {
@@ -49,8 +47,4 @@ func merge(a, b []int) []int {
 		}
 	}
 	return c
-}
-
-func main() {
-	fmt.Println(Merge([]int{9, 8, 7, 3, 2, 1, 1, 5, 4, 6}))
 }
