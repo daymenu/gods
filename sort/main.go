@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"sort"
 
 	"github.com/daymenu/gods/sort/bubble"
 	"github.com/daymenu/gods/sort/insertion"
@@ -26,4 +27,7 @@ func main() {
 	a = []int{3, 2, 1, 1, 5, 6, 10, 9, 7}
 	b := merge.Merge(a)
 	fmt.Println(b)
+	strArr := []string{"a", "b", "d", "c"}
+	sort.Strings(strArr)
+	fmt.Println(strArr)
 }
