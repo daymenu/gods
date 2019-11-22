@@ -1,4 +1,4 @@
-package main
+package bsearch
 
 import "fmt"
 
@@ -17,13 +17,8 @@ func Bsearch(a []int, value int) (int, error) {
 		case value < a[middle]:
 			hight = middle - 1
 		}
+		fmt.Println(low, middle, hight)
 	}
 
 	return -1, fmt.Errorf("no found value")
-}
-
-func main() {
-	a := []int{1, 2, 3, 4, 5, 6, 7}
-	i, e := Bsearch(a, 5)
-	fmt.Println(i, e)
 }
