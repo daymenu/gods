@@ -13,12 +13,11 @@ func TestBsearch(t *testing.T) {
 
 	j, err := Bsearch(a, 0)
 	if j != -1 || err == nil {
-		t.Errorf("Bsearch %d not in %v", j, a)
+		t.Errorf("Bsearch %d not in %v", 0, a)
 	}
 
 	m, err := Bsearch(a, 1000000)
 	if m != -1 || err == nil {
 		t.Errorf("Bsearch %d not in %v %v", m, a, err)
 	}
-	t.Errorf("Bsearch %d not in %v %v", m, a, err)
 }
