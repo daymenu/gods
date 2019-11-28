@@ -18,7 +18,6 @@ func Bsearch(a []int, value int) (int, error) {
 		case value < a[middle]:
 			hight = middle - 1
 		}
-		fmt.Println(low, middle, hight)
 	}
 
 	return -1, fmt.Errorf("no found value")

@@ -2,7 +2,7 @@ package bsearch
 
 import "testing"
 
-func TestRepeatLBsearch(t *testing.T) {
+func TestRepeatLBsearchRecurseRecurse(t *testing.T) {
 	a := []int{1, 2, 3, 4, 4, 4, 5, 6, 7}
 
 	for i := range a {
@@ -10,24 +10,24 @@ func TestRepeatLBsearch(t *testing.T) {
 		if a[i] == 4 {
 			lindex = 3
 		}
-		j, err := RepeatLBsearch(a, a[i])
+		j, err := RepeatLBsearchRecurse(a, a[i])
 		if j != lindex || err != nil {
 			t.Error(i, a[i], lindex, j, err)
 		}
 	}
 
-	j, err := RepeatLBsearch(a, 0)
+	j, err := RepeatLBsearchRecurse(a, 0)
 	if j != -1 || err == nil {
 		t.Errorf("Bsearch %d not in %v", 0, a)
 	}
 
-	m, err := RepeatLBsearch(a, 1000000)
+	m, err := RepeatLBsearchRecurse(a, 1000000)
 	if m != -1 || err == nil {
 		t.Errorf("Bsearch %d not in %v %v", m, a, err)
 	}
 }
 
-func TestRepeatRBsearch(t *testing.T) {
+func TestRepeatRBsearchRecurseRecurse(t *testing.T) {
 	a := []int{1, 2, 3, 4, 4, 4, 5, 6, 7}
 
 	for i := range a {
@@ -35,18 +35,18 @@ func TestRepeatRBsearch(t *testing.T) {
 		if a[i] == 4 {
 			lindex = 5
 		}
-		j, err := RepeatRBsearch(a, a[i])
+		j, err := RepeatRBsearchRecurse(a, a[i])
 		if j != lindex || err != nil {
 			t.Error(i, a[i], lindex, j, err)
 		}
 	}
 
-	j, err := RepeatRBsearch(a, 0)
+	j, err := RepeatRBsearchRecurse(a, 0)
 	if j != -1 || err == nil {
 		t.Errorf("Bsearch %d not in %v", 0, a)
 	}
 
-	m, err := RepeatRBsearch(a, 1000000)
+	m, err := RepeatRBsearchRecurse(a, 1000000)
 	if m != -1 || err == nil {
 		t.Errorf("Bsearch %d not in %v %v", m, a, err)
 	}
