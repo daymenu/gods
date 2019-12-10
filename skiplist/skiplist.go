@@ -1,7 +1,5 @@
 package skiplist
 
-import "math"
-
 // MaxLevel 跳表的最大层级
 const MaxLevel = 16
 
@@ -22,8 +20,8 @@ type SkipList struct {
 }
 
 // NewSkipNode 新建跳表节点
-func NewSkipNode(v interface{}) *SkipNode {
-	return &SkipNode{v, MaxLevel, math.MinInt32, nil, nil}
+func NewSkipNode(v interface{}, scroe, level int) *SkipNode {
+	return &SkipNode{v: v, level: level, scroe: scroe, right: nil, down: nil}
 }
 
 // NewSkipList 建立列表
