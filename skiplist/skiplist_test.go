@@ -5,6 +5,12 @@ import (
 	"testing"
 )
 
+func TestInsert(t *testing.T) {
+	sl := NewSkipList()
+	sl.Insert(1, 1)
+	t.Error()
+}
+
 /**
 测试随机函数的概率
 */
