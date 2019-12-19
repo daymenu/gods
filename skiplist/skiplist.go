@@ -90,7 +90,9 @@ func (s *SkipList) Insert(v interface{}, score int) (err error) {
 				leftForwords[i] = p
 				break
 			}
+			p = p.forwords[i]
 		}
+
 		if nil == p.forwords[i] {
 			leftForwords[i] = p
 		}
@@ -111,5 +113,17 @@ func (s *SkipList) Insert(v interface{}, score int) (err error) {
 	}
 
 	s.length++
+	return
+}
+
+// Find 寻找某个值得元素
+func (s *SkipList) Find(v interface{}) (skipnode *SkipNode, err error) {
+	p := s.head
+	for i := s.level; i >= 0; i-- {
+		for p.forwords[i] != nil && p.forwords[i].v == v {
+			p = p.forwords[i]
+		}
+	}
+
 	return
 }
