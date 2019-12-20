@@ -13,7 +13,7 @@ func TestInsert(t *testing.T) {
 	sl.Insert(3, 3)
 	sl.Insert(4, 4)
 	sl.Insert(5, 5)
-	s, err := sl.Find(3, 3)
+	s, err := sl.Find(5, 5)
 	fmt.Printf("%#v %v", s, err)
 	t.Error()
 }

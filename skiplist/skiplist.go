@@ -101,8 +101,9 @@ func (s *SkipList) Insert(v interface{}, score int) (err error) {
 	randomLevel := randomLevel()
 
 	node := NewSkipNode(v, score, randomLevel)
-
+	fmt.Println(node)
 	for j := 0; j <= randomLevel-1; j++ {
+		fmt.Println(j)
 		next := leftForwords[j].forwords[j]
 		leftForwords[j].forwords[j] = node
 		node.forwords[j] = next
@@ -122,7 +123,7 @@ func (s *SkipList) Find(score int, v interface{}) (skipnode *SkipNode, err error
 	for i := s.level; i >= 0; i-- {
 		for nil != p.forwords[i] {
 			if p.score == score && p.v == v {
-				return p.forwords[i], nil
+				return p, nil
 			} else if p.score > score {
 				break
 			}
