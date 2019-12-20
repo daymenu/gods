@@ -1,6 +1,7 @@
 package skiplist
 
 import (
+	"fmt"
 	"sort"
 	"testing"
 )
@@ -8,6 +9,12 @@ import (
 func TestInsert(t *testing.T) {
 	sl := NewSkipList()
 	sl.Insert(1, 1)
+	sl.Insert(2, 2)
+	sl.Insert(3, 3)
+	sl.Insert(4, 4)
+	sl.Insert(5, 5)
+	s, err := sl.Find(3, 3)
+	fmt.Printf("%#v %v", s, err)
 	t.Error()
 }
 

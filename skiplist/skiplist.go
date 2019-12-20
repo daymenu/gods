@@ -44,7 +44,7 @@ func NewSkipNode(v interface{}, score int, level int) *SkipNode {
 // NewSkipList 建立列表
 func NewSkipList() *SkipList {
 	return &SkipList{
-		head:   NewSkipNode(nil, math.MaxInt32, MaxLevel),
+		head:   NewSkipNode(nil, math.MinInt32, MaxLevel),
 		level:  DefaultLevel,
 		length: DefaultLength,
 	}
@@ -107,7 +107,7 @@ func (s *SkipList) Insert(v interface{}, score int) (err error) {
 		leftForwords[j].forwords[j] = node
 		node.forwords[j] = next
 	}
-	fmt.Println(leftForwords)
+
 	if randomLevel > s.level {
 		s.level = randomLevel
 	}
@@ -117,13 +117,17 @@ func (s *SkipList) Insert(v interface{}, score int) (err error) {
 }
 
 // Find 寻找某个值得元素
-func (s *SkipList) Find(v interface{}) (skipnode *SkipNode, err error) {
+func (s *SkipList) Find(score int, v interface{}) (skipnode *SkipNode, err error) {
 	p := s.head
 	for i := s.level; i >= 0; i-- {
-		for p.forwords[i] != nil && p.forwords[i].v == v {
+		for nil != p.forwords[i] {
+			if p.score == score && p.v == v {
+				return p.forwords[i], nil
+			} else if p.score > score {
+				break
+			}
 			p = p.forwords[i]
 		}
 	}
-
 	return
 }
