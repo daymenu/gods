@@ -3,19 +3,40 @@ package skiplist
 import (
 	"fmt"
 	"sort"
+	"strings"
 	"testing"
 )
 
+type Order struct {
+	OrderID   int
+	OrderSn   string
+	OrderDate int
+}
+
+func (o *Order) String() string {
+	return fmt.Sprintf("orderSn: %s", o.OrderSn)
+}
+
+func (o *Order) Compare(order interface{}) int {
+	orderObj, ok := order.(*Order)
+	if !ok {
+		return -1
+	}
+	return strings.Compare(o.OrderSn, orderObj.OrderSn)
+}
+
 func TestInsert(t *testing.T) {
 	sl := NewSkipList()
-	sl.Insert(1, 1)
-	sl.Insert(2, 2)
-	sl.Insert(3, 3)
-	sl.Insert(4, 4)
-	sl.Insert(5, 5)
-	s, err := sl.Find(5, 5)
-	fmt.Printf("%#v %v", s, err)
-	t.Error()
+	o1 := &Order{OrderID: 1, OrderSn: "JD1000", OrderDate: 1577254912}
+	sl.Insert(1, o1)
+	s, err := sl.Find(1, o1)
+	if err != nil {
+		t.Error(err)
+	}
+	ss, ok := s.data.(*Order)
+	if !ok || ss.OrderSn != "JD1000" {
+		t.Error("find order is error")
+	}
 }
 
 /**
@@ -23,7 +44,7 @@ func TestInsert(t *testing.T) {
 */
 func TestRandomLevel(t *testing.T) {
 	randoms := make(map[int]int)
-	randomTime := 10000000
+	randomTime := 100000
 	for i := 0; i < randomTime; i++ {
 		randoms[randomLevel()]++
 	}
