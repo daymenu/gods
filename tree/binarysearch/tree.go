@@ -58,6 +58,15 @@ func (t *Tree) Insert(data Comparer) error {
 	return nil
 }
 
+// Delete 删除指定值的节点
+func (t *Tree) Delete(data Comparer) (err error) {
+	p := t.root
+	for p != nil {
+
+	}
+	return
+}
+
 // PreOrder 前序遍历
 func (t *Tree) PreOrder() {
 	p := t.root
