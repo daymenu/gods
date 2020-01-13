@@ -123,3 +123,19 @@ func (n *Node) inOrder() {
 		n.right.preOrder()
 	}
 }
+
+// Find 查找
+func (t *Tree) Find(c Comparer) (datas []Comparer) {
+	p := t.root
+	for p != nil {
+		if p.data.Compare(c) > 0 {
+			p = p.right
+		} else if p.data.Compare(c) == 0 {
+			datas = append(datas, p.data)
+			p = p.right
+		} else {
+			p = p.left
+		}
+	}
+	return
+}
