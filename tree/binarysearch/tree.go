@@ -61,8 +61,17 @@ func (t *Tree) Insert(data Comparer) error {
 // Delete 删除指定值的节点
 func (t *Tree) Delete(data Comparer) (err error) {
 	p := t.root
+	var pp *Node
 	for p != nil {
-
+		pp = p
+		c := p.data.Compare(data)
+		if c > 0 {
+			p = p.right
+		} else if c == 0 {
+			p = p.right
+		} else {
+			p = p.left
+		}
 	}
 	return
 }
