@@ -1,6 +1,9 @@
 package trie
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 // Node node
 type Node struct {
@@ -44,7 +47,7 @@ walk:
 			}
 
 			t.childrens = []*Node{&child}
-			t.indices = fmt.Sprintf("%s%c", t.indices, t.word[i])
+			t.indices = fmt.Sprintf("%c", t.word[i])
 			t.word = t.word[:i]
 		}
 		if i < len(word) {
@@ -57,8 +60,11 @@ walk:
 			}
 			word = word[i:]
 			if hasCommon {
-				t = t.childrens[0]
-				continue walk
+				index := strings.Index(t.indices, fmt.Sprintf("%c", word[0]))
+				if index != -1 {
+					t = t.childrens[index]
+					continue walk
+				}
 			} else {
 				child := Node{
 					word: word,
