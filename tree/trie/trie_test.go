@@ -15,6 +15,7 @@ func TestInsert(t *testing.T) {
 	trie.Insert("/tao")
 	trie.Insert("/tttt")
 	trie.Insert("/t")
+	trie.Insert("/hi")
 }
 
 func TestIndex(t *testing.T) {

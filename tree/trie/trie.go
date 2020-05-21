@@ -8,6 +8,7 @@ import (
 // Node node
 type Node struct {
 	word      string
+	fullWord  string
 	indices   string
 	childrens []*Node
 }
@@ -29,16 +30,21 @@ func findLongestCommonPrefix(a, b string) int {
 
 // Insert insert
 func (t *Node) Insert(word string) {
+	// 插入根节点
 	if len(t.word) == 0 && len(t.childrens) == 0 {
 		t.word = word
+		t.fullWord = word
 		return
 	}
 walk:
 	for {
+		//word 等于0就结束循环
 		if len(word) == 0 {
 			return
 		}
+		// 寻找最长前缀
 		i := findLongestCommonPrefix(t.word, word)
+		// 将该节点变为公共节点 并将该节点的差异后缀变为子节点
 		if i < len(t.word) {
 			child := Node{
 				word:      t.word[i:],
@@ -49,7 +55,9 @@ walk:
 			t.childrens = []*Node{&child}
 			t.indices = fmt.Sprintf("%c", t.word[i])
 			t.word = t.word[:i]
+			t.fullWord = t.fullWord
 		}
+		// 插入新节点
 		if i < len(word) {
 			hasCommon := false
 			for j := 0; j < len(t.indices); j++ {
